@@ -5,7 +5,7 @@ import openai
 def main():
     # Ensure user provided a question or text
     if len(sys.argv) < 2:
-        print("Usage: chat_cli.py <prompt>")
+        print("Usage: askopenai.py \"<prompt>\"")
         sys.exit(1)
 
     # Join all CLI arguments into one input string
