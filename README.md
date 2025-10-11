@@ -1,5 +1,7 @@
 # askopenai
 
+## Example
+
 ```
 ./askopenai.py "Give me the product of any two random numbers from the fibbinocci sequence and show the preceding two pairs for each number. Then analyze the product to see if there's a way to return to the randomly picked fibbinocci numbers without knowing that's the case. Assume you know only that it is a product of two numbers."         
 Picked Fibonacci numbers (at random): 144 and 34
@@ -28,6 +30,8 @@ Key takeaways:
 - Without knowing to look for Fibonacci factors, the product offers no distinctive shortcut.
 - Even if you do know to look, recovering the pair requires factoring N; for large N, this can be computationally hard.
 ```
+
+## Example
 
 ```
 ./askopenai.py "Give me python code that takes the product of any two random numbers from the fibbinocci sequence and analyzes from the product to find the two factors and the two preceding pairs for each number. Give me the code only so I can pipe it to python3." | /usr/bin/python3
