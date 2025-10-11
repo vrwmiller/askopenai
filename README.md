@@ -28,3 +28,19 @@ Key takeaways:
 - Without knowing to look for Fibonacci factors, the product offers no distinctive shortcut.
 - Even if you do know to look, recovering the pair requires factoring N; for large N, this can be computationally hard.
 ```
+
+```
+./askopenai.py "Give me python code that takes the product of any two random numbers from the fibbinocci sequence and analyzes from the product to find the two factors and the two preceding pairs for each number. Give me the code only so I can pipe it to python3." | /usr/bin/python3
+Randomly selected Fibonacci indices: 8, 29
+Randomly selected Fibonacci numbers: 21, 514229
+Product: 10798809
+Recovered Fibonacci factor pairs from product:
+  21 x 514229
+Preceding pairs for each recovered factor:
+  Value 21 (F_8):
+    preceding pair 1: 13, 8
+    preceding pair 2: 5, 3
+  Value 514229 (F_29):
+    preceding pair 1: 317811, 196418
+    preceding pair 2: 121393, 75025
+```
