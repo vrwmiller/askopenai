@@ -1,6 +1,6 @@
 # askopenai
 
-## Example
+## askopenai Example
 
 ```
 ./askopenai.py "Give me the product of any two random numbers from the fibbinocci sequence and show the preceding two pairs for each number. Then analyze the product to see if there's a way to return to the randomly picked fibbinocci numbers without knowing that's the case. Assume you know only that it is a product of two numbers."         
@@ -31,7 +31,7 @@ Key takeaways:
 - Even if you do know to look, recovering the pair requires factoring N; for large N, this can be computationally hard.
 ```
 
-## Example
+## askopenai Example
 
 ```
 ./askopenai.py "Give me python code that takes the product of any two random numbers from the fibbinocci sequence and analyzes from the product to find the two factors and the two preceding pairs for each number. Give me the code only so I can pipe it to python3." | /usr/bin/python3
@@ -47,4 +47,18 @@ Preceding pairs for each recovered factor:
   Value 514229 (F_29):
     preceding pair 1: 317811, 196418
     preceding pair 2: 121393, 75025
+```
+
+## randomgpt example
+```
+$ ./randomgpt.py             
+
+🎲 Topic hint: space
+🧩 Question: Could a rainbow form inside Saturn’s rings?
+💡 Answer: Short answer: not like Earth’s rainbows.
+
+- A classic rainbow needs countless nearly spherical, transparent droplets (like raindrops) with the Sun behind you. Saturn’s main rings are airless and made mostly of irregular, solid water‑ice chunks from dust to boulders, so they don’t produce a bright, colored bow. You’d see glittery reflections and strong brightness changes with viewing angle (notably the “opposition surge”), not a rainbow arc.
+
+- There is a caveat: very fine, nearly spherical ice grains can make a weak “rainbow-like” backscattering bump. This has been seen by Cassini in Enceladus’s geyser plume, and similar physics can apply to Saturn’s very tenuous, dusty E ring. But it would be extremely faint—not an obvious, colorful bow to human eyes inside the rings.
+
 ```
