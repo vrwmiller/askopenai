@@ -1,50 +1,68 @@
 #!/usr/bin/env python3
+import argparse
 import openai
 import random
-import time
 
 def main():
-    client = openai.OpenAI()
+    parser = argparse.ArgumentParser(
+        description="Generate a random question and answer using OpenAI's API."
+    )
+    parser.add_argument(
+        "--model", "-m",
+        default="gpt-5",
+        help="Model to use (default: gpt-5)"
+    )
+    parser.add_argument(
+        "--topic", "-t",
+        default="anything at all",
+        help="Topic to guide question generation (default: anything at all)"
+    )
+    args = parser.parse_args()
 
-    # Create some entropy: random seed words
-    random_topics = [
-        "science", "history", "art", "technology", "music",
-        "nature", "space", "mythology", "sports", "literature",
-        "geography", "food", "philosophy", "operating systems",
-        "programming", "FreeBSD", "Linux"
-    ]
-    topic = random.choice(random_topics)
+    client = OpenAI()
+    model = args.model
+    topic = args.topic
 
-    # Step 1: Ask OpenAI for a random, simple question with extra variety
+    print(f"🔍 Using model: {model}")
+    print(f"🎯 Topic: {topic}")
+
+    # Create an entropy seed to add randomness even if temperature is fixed
+    entropy = random.randint(1000, 9999)
     question_prompt = (
-        f"Generate one truly random, interesting, but simple question related to {topic}. "
-        "Avoid repeating common trivia. The question should be concise (under 15 words) "
-        "and not include an answer. Use your creativity to vary style and topic phrasing each time."
+        f"(Seed {entropy}) Generate one random, interesting, but simple question "
+        f"related to {topic}. Keep it short and clear."
     )
 
-    question_resp = client.chat.completions.create(
-        model="gpt-5",
-        messages=[
+    # Detect models that may not support temperature
+    supports_temperature = not model.startswith(("gpt-4.1", "gpt-5"))
+
+    kwargs = {
+        "model": model,
+        "messages": [
             {"role": "system", "content": "You are a curious and creative assistant."},
             {"role": "user", "content": question_prompt},
         ],
-    )
+    }
 
+    if supports_temperature:
+        kwargs["temperature"] = 1.5  # increase randomness if supported
+
+    question_resp = client.chat.completions.create(**kwargs)
     question = question_resp.choices[0].message.content.strip()
-    print(f"\n🎲 Topic hint: {topic}")
-    print(f"🧩 Question: {question}")
 
-    # Step 2: Feed the question back into OpenAI
+    print("🤔 Question:", question)
+
     answer_resp = client.chat.completions.create(
-        model="gpt-5",
+        model=model,
         messages=[
-            {"role": "system", "content": "You are a concise and accurate assistant."},
+            {"role": "system", "content": "Answer clearly and concisely."},
             {"role": "user", "content": question},
         ],
     )
 
     answer = answer_resp.choices[0].message.content.strip()
-    print(f"💡 Answer: {answer}\n")
+    print("\n💡 Answer:", answer)
+
 
 if __name__ == "__main__":
     main()
