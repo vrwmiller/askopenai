@@ -10,7 +10,8 @@ def main():
     random_topics = [
         "science", "history", "art", "technology", "music",
         "nature", "space", "mythology", "sports", "literature",
-        "geography", "food", "philosophy"
+        "geography", "food", "philosophy", "operating systems",
+        "programming", "FreeBSD", "Linux"
     ]
     topic = random.choice(random_topics)
 
