@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import argparse
-import openai
 import random
+from openai import OpenAI
 
 def main():
     parser = argparse.ArgumentParser(
