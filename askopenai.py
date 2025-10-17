@@ -3,6 +3,7 @@ import sys
 import argparse
 import openai
 import os
+import time
 
 def fetch_available_models():
     """Fetches the list of available models from the OpenAI API."""
@@ -44,6 +45,17 @@ def main():
         default="gpt-5",
         help="Which model to use (default: gpt-5)"
     )
+    parser.add_argument(
+        "--max-tokens",
+        type=int,
+        default=None,
+        help="Maximum tokens to generate for completions (optional)."
+    )
+    parser.add_argument(
+        "--debug",
+        action="store_true",
+        help="Show debug information such as API call timings."
+    )
     parser.add_argument("-h", "--help", action="store_true", help="Show usage")
 
     args = parser.parse_args()
@@ -53,21 +65,33 @@ def main():
 
     prompt_text = " ".join(args.prompt)
     model_name = args.model
+    max_tokens = args.max_tokens
+    # default token budget when user doesn't specify
+    default_max_tokens = 256
+    debug = args.debug
 
     # Initialize OpenAI client
     client = openai.OpenAI(api_key=os.getenv('OPENAI_API_KEY'))
 
     # Send request
-    response = client.chat.completions.create(
-        model=model_name,
-        messages=[
+    call_kwargs = {
+        "model": model_name,
+        "messages": [
             {"role": "system", "content": "You are a concise, accurate assistant."},
             {"role": "user", "content": prompt_text}
         ]
-    )
+    }
+    # include max_tokens: user value if provided, otherwise use default
+    call_kwargs["max_tokens"] = max_tokens if max_tokens is not None else default_max_tokens
+
+    start = time.perf_counter()
+    response = client.chat.completions.create(**call_kwargs)
+    duration = time.perf_counter() - start
 
     # Print output
     print(response.choices[0].message.content)
+    if debug:
+        print(f"[debug] API call duration: {duration:.3f} seconds")
 
 if __name__ == "__main__":
     main()
