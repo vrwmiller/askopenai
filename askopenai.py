@@ -81,8 +81,9 @@ def main():
             {"role": "user", "content": prompt_text}
         ]
     }
-    # include max_tokens: user value if provided, otherwise use default
-    call_kwargs["max_tokens"] = max_tokens if max_tokens is not None else default_max_tokens
+    # include appropriate token parameter (newer models use max_completion_tokens)
+    token_param = "max_completion_tokens" if model_name.startswith(("gpt-4", "gpt-4.1", "gpt-5")) else "max_tokens"
+    call_kwargs[token_param] = max_tokens if max_tokens is not None else default_max_tokens
 
     start = time.perf_counter()
     response = client.chat.completions.create(**call_kwargs)
