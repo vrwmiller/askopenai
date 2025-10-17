@@ -6,3 +6,10 @@ venv/
 ENV/
 env.bak/
 venv.bak/
+
+# dotfiles
+.*.swp
+.*.swo
+.*.bak
+.*.tmp
+.openai-api-key
