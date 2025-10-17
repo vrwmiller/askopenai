@@ -40,8 +40,8 @@ def main():
     answer_default_max = 256
     debug = args.debug
 
-    print(f"🔍 Using model: {model}")
-    print(f"🎯 Topic: {topic}")
+    print(f"Using model: {model}")
+    print(f"Topic: {topic}")
 
     # Create an entropy seed to add randomness even if temperature is fixed
     entropy = random.randint(1000, 9999)
@@ -71,7 +71,7 @@ def main():
     dur_q = time.perf_counter() - start_q
     question = question_resp.choices[0].message.content.strip()
 
-    print("🤔 Question:", question)
+    print("Question:", question)
     if debug:
         try:
             print(f"[debug] question API call duration: {dur_q:.3f} seconds")
@@ -93,7 +93,7 @@ def main():
     dur_a = time.perf_counter() - start_a
 
     answer = answer_resp.choices[0].message.content.strip()
-    print("\n💡 Answer:", answer)
+    print("\nAnswer:", answer)
     if debug:
         try:
             print(f"[debug] answer API call duration: {dur_a:.3f} seconds")
